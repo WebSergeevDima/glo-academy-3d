@@ -1,4 +1,4 @@
-const Timer = (deadline) => {
+const timer = (deadline) => {
     const timerDays = document.querySelector('#timer-days');
     const timerHours = document.querySelector('#timer-hours');
     const timerMinutes = document.querySelector('#timer-minutes');
@@ -14,18 +14,30 @@ const Timer = (deadline) => {
         let hours = Math.floor((timeRemaining / 60 / 60) % 24);
         let days = Math.floor((timeRemaining / 60 / 60 / 24) % 24);
 
-        return {timeRemaining, days, hours, minutes, seconds};
+        return {
+            timeRemaining,
+            days,
+            hours,
+            minutes,
+            seconds
+        };
 
     }
 
     const updateClock = setInterval(() => {
-        const {timeRemaining, days, hours, minutes, seconds} = getTimeRemaining();
+        const {
+            timeRemaining,
+            days,
+            hours,
+            minutes,
+            seconds
+        } = getTimeRemaining();
         timerDays.textContent = isLessThanZero(days);
         timerHours.textContent = isLessThanZero(hours);
         timerMinutes.textContent = isLessThanZero(minutes);
         timerSeconds.textContent = isLessThanZero(seconds);
 
-        if(timeRemaining <= 0) {
+        if (timeRemaining <= 0) {
             clearInterval(updateClock);
         }
     }, 1000);
@@ -40,4 +52,4 @@ const Timer = (deadline) => {
 
 }
 
-export default Timer
+export default timer
