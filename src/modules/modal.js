@@ -7,7 +7,7 @@ const modal = () => {
     let intervalModalHidden;
     let isMobile = false;
 
-    const buttonsHandler = () => {
+    const buttonHandler = () => {
 
         if (isMobile) {
             modal.style.display = 'block';
@@ -55,9 +55,10 @@ const modal = () => {
         isMobile = window.innerWidth < 768 ? true : false;
     }
 
+
     isMobileHendler();
 
-    buttons.forEach(item => item.addEventListener('click', buttonsHandler));
+    buttons.forEach(item => item.addEventListener('click', buttonHandler));
 
     window.addEventListener('resize', isMobileHendler);
 
