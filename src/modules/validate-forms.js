@@ -20,10 +20,6 @@ const validateForms = () => {
         document.querySelector('#form3 [type="tel"]')
     ];
 
-    console.log(inputsText);
-    console.log(inputsEmail);
-    console.log(inputsTel);
-
     inputsText.forEach(item => {
         item.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^а-яА-Я- ]/g, '');
