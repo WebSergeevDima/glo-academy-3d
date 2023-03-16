@@ -1,7 +1,6 @@
 const modal = () => {
     const modal = document.querySelector('.popup');
     const buttons = document.querySelectorAll('.popup-btn');
-    const closeBtn = modal.querySelector('.popup-close');
     let opacity = 0;
     let intervalModalShow;
     let intervalModalHidden;
@@ -62,7 +61,11 @@ const modal = () => {
 
     window.addEventListener('resize', isMobileHendler);
 
-    closeBtn.addEventListener('click', closeBtnHandler);
+    modal.addEventListener('click', (e) => {
+        if (!e.target.closest('.popup-content') || e.target.closest('.popup-close')) {
+            closeBtnHandler();
+        }
+    });
 
 }
 
