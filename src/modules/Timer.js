@@ -24,7 +24,7 @@ const timer = (deadline) => {
 
     }
 
-    const updateClock = setInterval(() => {
+    const renderTimer = () => {
         const {
             timeRemaining,
             days,
@@ -40,6 +40,10 @@ const timer = (deadline) => {
         if (timeRemaining <= 0) {
             clearInterval(updateClock);
         }
+    }
+
+    const updateClock = setInterval(() => {
+        renderTimer();
     }, 1000);
 
     const isLessThanZero = (num) => {
@@ -50,6 +54,7 @@ const timer = (deadline) => {
         return num < 10 ? `0${num}` : num;
     }
 
+    renderTimer();
 }
 
 export default timer

@@ -28,7 +28,7 @@ const validateForms = () => {
 
     inputsEmail.forEach(item => {
         item.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^a-zA-Z@-_.!~*']/g, '');
+            e.target.value = e.target.value.replace(/[^0-9a-zA-Z@\-_.!~*']/g, '');
         });
     });
 

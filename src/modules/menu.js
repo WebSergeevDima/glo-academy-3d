@@ -22,6 +22,7 @@ const menu = () => {
             (!e.target.closest('menu') && document.querySelector('menu.active-menu')) ||
             (e.target.closest('.menu') || e.target.classList.contains('close-btn'))
         ) {
+            e.preventDefault();
             menuHandler();
         }
 
