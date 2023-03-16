@@ -18,9 +18,13 @@ const menu = () => {
 
     document.addEventListener('click', (e) => {
 
-        if (e.target.closest('.menu') || e.target.classList.contains('close-btn')) {
+        if (
+            (!e.target.closest('menu') && document.querySelector('menu.active-menu')) ||
+            (e.target.closest('.menu') || e.target.classList.contains('close-btn'))
+        ) {
             menuHandler();
         }
+
 
         if (e.target.matches('a') && e.target.closest('li')) {
 
@@ -35,6 +39,8 @@ const menu = () => {
                 block: 'start'
             });
         }
+
+
 
     });
 }
