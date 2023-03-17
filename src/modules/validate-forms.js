@@ -1,3 +1,5 @@
+import maskPhone from './maskphone';
+
 const validateForms = () => {
 
     const inputsText = [
@@ -13,13 +15,6 @@ const validateForms = () => {
         document.querySelector('#form3 [type="email"]')
     ];
 
-
-    const inputsTel = [
-        document.querySelector('#form1 [type="tel"]'),
-        document.querySelector('#form2 [type="tel"]'),
-        document.querySelector('#form3 [type="tel"]')
-    ];
-
     inputsText.forEach(item => {
         item.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^а-яА-Я- ]/g, '');
@@ -32,11 +27,7 @@ const validateForms = () => {
         });
     });
 
-    inputsTel.forEach(item => {
-        item.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^\d()-]/g, '');
-        });
-    });
+    maskPhone('#form1 [type="tel"], #form2 [type="tel"], #form3 [type="tel"]');
 
 }
 
