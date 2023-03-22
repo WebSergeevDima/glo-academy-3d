@@ -1,9 +1,10 @@
+import {
+    animate
+} from './helpers';
+
 const modal = () => {
     const modal = document.querySelector('.popup');
     const buttons = document.querySelectorAll('.popup-btn');
-    let opacity = 0;
-    let intervalModalShow;
-    let intervalModalHidden;
     let isMobile = false;
 
     const buttonHandler = () => {
@@ -17,15 +18,16 @@ const modal = () => {
         modal.style.opacity = '0';
         modal.style.display = 'block';
 
-        intervalModalShow = setInterval(() => {
-            opacity += 0.01;
-            modal.style.opacity = opacity;
-
-            if (opacity >= 1) {
-                clearInterval(intervalModalShow);
+        animate({
+            duration: 200,
+            timing(timeFraction) {
+                return timeFraction;
+            },
+            draw(progress) {
+                modal.style.opacity = progress;
             }
+        });
 
-        }, 10);
     }
 
     const closeBtnHandler = () => {
@@ -35,25 +37,24 @@ const modal = () => {
             return false;
         }
 
-        clearInterval(intervalModalShow);
-
-        intervalModalHidden = setInterval(() => {
-            opacity -= 0.01;
-            modal.style.opacity = opacity;
-
-            if (opacity < 0.1) {
-                clearInterval(intervalModalHidden);
-                modal.style.display = 'none';
+        animate({
+            duration: 200,
+            timing(timeFraction) {
+                return timeFraction;
+            },
+            draw(progress) {
+                modal.style.opacity = 1 - progress;
+                if (progress === 1) {
+                    modal.style.display = 'none';
+                }
             }
-
-        }, 10);
+        });
 
     }
 
     const isMobileHendler = () => {
         isMobile = window.innerWidth < 768 ? true : false;
     }
-
 
     isMobileHendler();
 
