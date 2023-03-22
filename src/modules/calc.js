@@ -7,16 +7,17 @@ const calc = (price = 100) => {
     const calcCount = document.querySelector('.calc-count');
     const calcDay = document.querySelector('.calc-day');
     const total = document.getElementById('total');
-    let totalValue = 0;
     let startNum = 0;
     let startTime = 0;
-    let speedAnimateNumber = 500;
+    let totalValue = 0;
+    let speedAnimateNumber = 300;
 
     const countCalc = () => {
         const calcTypeValue = +calcType.value;
         const calcSquareValue = +calcSquare.value;
         let calcCountValue = 1;
         let calcDayValue = 1;
+        totalValue = 0;
         startTime = new Date().getTime();
 
         if (calcCount.value > 1) {
@@ -37,15 +38,19 @@ const calc = (price = 100) => {
 
     };
 
+
+
     const animateNumber = () => {
         let currTime = new Date().getTime();
         startNum = ((currTime - startTime) / speedAnimateNumber) * totalValue;
+
         if (startNum < totalValue) {
             total.textContent = parseInt(startNum++);
             window.requestAnimationFrame(animateNumber);
         } else {
             total.textContent = parseInt(totalValue);
         }
+
     }
 
     calcInputItems.forEach(item => {
