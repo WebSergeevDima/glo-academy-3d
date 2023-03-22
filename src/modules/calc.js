@@ -42,10 +42,10 @@ const calc = (price = 100) => {
         startNum = ((currTime - startTime) / speedAnimateNumber) * totalValue;
         if (startNum < totalValue) {
             total.textContent = parseInt(startNum++);
+            window.requestAnimationFrame(animateNumber);
         } else {
             total.textContent = parseInt(totalValue);
         }
-        window.requestAnimationFrame(animateNumber);
     }
 
     calcInputItems.forEach(item => {
