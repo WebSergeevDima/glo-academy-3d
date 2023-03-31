@@ -1,5 +1,5 @@
 import maskPhone from './maskphone';
-import {validateFormItem} from "./validateForm";
+import validateForm from "./validateForm";
 
 
 const validateForms = () => {
@@ -18,25 +18,29 @@ const validateForms = () => {
     ];
 
     const inputsPhone = [
-        document.querySelector('#form1 [type="phone"]'),
-        document.querySelector('#form2 [type="phone"]'),
-        document.querySelector('#form3 [type="phone"]')
+        document.querySelector('#form1 [type="tel"]'),
+        document.querySelector('#form2 [type="tel"]'),
+        document.querySelector('#form3 [type="tel"]')
     ];
 
     inputsText.forEach(item => {
         item.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^а-яА-Я- ]/g, '');
-
-            console.log('e.target: ', e.target.length);
-
+            validateForm([e.target], 'item');
         });
     });
-
 
     inputsEmail.forEach(item => {
         item.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^0-9a-zA-Z@\-_.!~*']/g, '');
+            validateForm([e.target], 'item');
+        });
+    });
 
+    inputsPhone.forEach(item => {
+        item.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^\s\d-()\+]/g, '').slice(0,18);
+            validateForm([e.target], 'item');
         });
     });
 
