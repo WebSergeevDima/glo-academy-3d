@@ -7,26 +7,33 @@ const modal = () => {
     const buttons = document.querySelectorAll('.popup-btn');
     let isMobile = false;
 
-    const buttonHandler = () => {
-
-        if (isMobile) {
-            modal.style.display = 'block';
-            modal.style.opacity = '1';
-            return false;
-        }
-
-        modal.style.opacity = '0';
-        modal.style.display = 'block';
+    const modalAnimation = isOpen => {
 
         animate({
             duration: 200,
             timing(timeFraction) {
-                return timeFraction;
+                return isOpen ? 1 - timeFraction : timeFraction;
             },
             draw(progress) {
                 modal.style.opacity = progress;
+                if (progress <= 0) {
+                    modal.style.display = 'none';
+                }
+
             }
         });
+
+    }
+
+    const buttonHandler = () => {
+
+        modal.style.display = 'block';
+        if (isMobile) {
+            modal.style.opacity = '1';
+            return false;
+        }
+
+        modalAnimation(false);
 
     }
 
@@ -37,18 +44,7 @@ const modal = () => {
             return false;
         }
 
-        animate({
-            duration: 200,
-            timing(timeFraction) {
-                return timeFraction;
-            },
-            draw(progress) {
-                modal.style.opacity = 1 - progress;
-                if (progress === 1) {
-                    modal.style.display = 'none';
-                }
-            }
-        });
+        modalAnimation(true);
 
     }
 
