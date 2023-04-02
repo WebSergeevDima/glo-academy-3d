@@ -1,14 +1,15 @@
-import validateForm, {clearErrorsOfForm} from "./validateForm";
+import validateForm from "./validateForm";
 
 const sendForm = ({formId, someElem = []}) => {
     const form = document.getElementById(formId);
-    const formStatus = document.getElementById('form-status');
+    const formStatus = form.querySelector('.form-status');
     const statusBlock = document.createElement('div');
     const loadText = 'Загрузка...';
     const errorText = 'Ошибка...';
     const successText = 'Спасибо! Наш менеджер с вами свяжется!';
 
     const sendData = data => {
+
         return fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'POST',
             body: JSON.stringify(data),
@@ -18,12 +19,11 @@ const sendForm = ({formId, someElem = []}) => {
         }).then(res => res.json());
     }
 
+
     const submitForm = () => {
         const formElements = form.querySelectorAll('input');
         const formData = new FormData(form);
         const formBody = {};
-
-        statusBlock.textContent = loadText;
 
         formData.forEach((val, key) => {
             formBody[key] = val;
@@ -32,18 +32,22 @@ const sendForm = ({formId, someElem = []}) => {
         someElem.forEach(item => {
             const elem = document.getElementById(item.id);
 
-            if (item.type === 'block') {
+            if (item.type === 'block' && (elem.textContent && /[^0]/g.test(elem.textContent))) {
                 formBody[item.id] = elem.textContent;
-            } else if (item.type === 'input') {
+            } else if (item.type === 'input' && (elem.value && /[^0]/g.test(elem.value))) {
                 formBody[item.id] = elem.value;
             }
 
         });
 
         if (validateForm(formElements)) {
+
+            addMessageOfForm(loadText);
+
             sendData(formBody).then(data => {
 
-                statusBlock.textContent = successText;
+                addMessageOfForm(successText);
+                removeMessageOfForm();
 
                 formElements.forEach(item => {
                     item.value = '';
@@ -51,13 +55,23 @@ const sendForm = ({formId, someElem = []}) => {
 
             });
         } else {
-            statusBlock.textContent = errorText;
-            console.log('Данные не валидны!');
+            addMessageOfForm(errorText);
+            removeMessageOfForm();
         }
 
+
+    }
+
+    const addMessageOfForm = (message) => {
+        formStatus.innerHTML = '';
+        statusBlock.textContent = message;
         formStatus.insertAdjacentElement('afterbegin', statusBlock);
+    }
 
-
+    const removeMessageOfForm = () => {
+        return setTimeout(() => {
+            formStatus.innerHTML = '';
+        }, 2000);
     }
 
     try {
@@ -77,6 +91,9 @@ const sendForm = ({formId, someElem = []}) => {
         console.log(error.message)
     }
 
+
+
 }
+
 
 export default sendForm;
