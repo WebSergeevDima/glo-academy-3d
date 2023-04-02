@@ -26,7 +26,9 @@ const sendForm = ({formId, someElem = []}) => {
         const formBody = {};
 
         formData.forEach((val, key) => {
-            formBody[key] = val;
+            if(val) {
+                formBody[key] = val;
+            }
         });
 
         someElem.forEach(item => {
